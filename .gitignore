@@ -1,0 +1,65 @@
+# ───────────────────────────────────────────────
+#  SaborPerfecto — lo que NO se sube al repositorio
+#
+#  Como leer este archivo:
+#    node_modules/    sin barra inicial  → aplica en CUALQUIER nivel de carpetas
+#    /Documentacion/  con barra inicial  → aplica SOLO en la raiz del repositorio
+# ───────────────────────────────────────────────
+
+# --- Secretos y configuracion local ---
+# Nunca subir: llevan las credenciales de la base de datos
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# El .env.ejemplo SI se sube: es la plantilla sin datos
+!.env.ejemplo
+!.env.production
+
+# --- Backend: Python ---
+# Cubre Backend/venv y cualquier __pycache__ del arbol
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+wheels/
+*.egg-info/
+*.egg
+.installed.cfg
+MANIFEST
+
+# --- Material de trabajo que no forma parte del producto ---
+# Los bloques del reparto, las notas internas y las maquetas del diseno
+/PROYECTO/
+/Documentacion/
+/stitch_saborperfecto_fuzzy_recommender/
+
+# --- Editores y sistema operativo ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sw?
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.DS_Store
+Thumbs.db
+desktop.ini
