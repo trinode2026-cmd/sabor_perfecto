@@ -16,7 +16,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
 import ContenedorPagina from '../componentes/diseno/contenedor_pagina'
 import PanelPreferencias from '../componentes/preferencias/panel_preferencias'
-import CajonPreferencias from '../componentes/preferencias/cajon_preferencias'
+import CajonPreferencias, { BotonAjustar } from '../componentes/preferencias/cajon_preferencias'
 import TarjetaRecomendado from '../componentes/platillos/tarjeta_recomendado'
 import FilaOpcion from '../componentes/platillos/fila_opcion'
 import MensajeError from '../componentes/comunes/mensaje_error'
@@ -31,30 +31,50 @@ export function Inicio() {
   const es_escritorio = useMediaQuery(tema.breakpoints.up('lg'))
   const [modo, establecer_modo] = useState(MODOS.salado)
   const [preferencias, establecer_preferencias] = useState(PREFERENCIAS_INICIALES)
+  // Que tan arriba quedo la barra de precio, para conservarla al cambiar de carta
+  const [proporcion_precio, establecer_proporcion] = useState(null)
   const [cajon_abierto, establecer_cajon] = useState(false)
 
   const consultar_rango = useCallback(() => pedir_rango_precios(modo), [modo])
   const { datos: rango_precios } = usePeticion(consultar_rango, [consultar_rango], null)
   const { datos: preajustes } = usePeticion(pedir_preajustes, [], [])
 
-  // Mientras el usuario no mueva la barra, el presupuesto se queda en su nivel normal
+  // Cada carta tiene sus propios perfiles rapidos
+  const preajustes_del_modo = useMemo(
+    () => preajustes.filter((preajuste) => preajuste.modo === modo),
+    [preajustes, modo],
+  )
+
+  // El presupuesto se calcula sobre los precios de la carta que se este viendo
   const preferencias_usadas = useMemo(() => {
     if (preferencias.presupuesto !== null) return preferencias
     if (!rango_precios) return preferencias
-    return {
-      ...preferencias,
-      presupuesto: punto_medio_precio(rango_precios.minimo, rango_precios.maximo),
-    }
-  }, [preferencias, rango_precios])
+    const { minimo, maximo } = rango_precios
+    const presupuesto =
+      proporcion_precio === null
+        ? punto_medio_precio(minimo, maximo)
+        : Math.round((minimo + proporcion_precio * (maximo - minimo)) / 5) * 5
+    return { ...preferencias, presupuesto }
+  }, [preferencias, rango_precios, proporcion_precio])
 
   const { resultado, cargando, error, reintentar } = useRecomendaciones(preferencias_usadas, modo, 8)
 
-  const cambiar_preferencias = useCallback((nuevas) => establecer_preferencias(nuevas), [])
+  // Al mover el precio se recuerda su posicion relativa, no el numero suelto
+  const cambiar_preferencias = useCallback(
+    (nuevas) => {
+      establecer_preferencias(nuevas)
+      if (nuevas.presupuesto != null && rango_precios) {
+        const ancho = rango_precios.maximo - rango_precios.minimo
+        establecer_proporcion(ancho > 0 ? (nuevas.presupuesto - rango_precios.minimo) / ancho : null)
+      }
+    },
+    [rango_precios],
+  )
 
-  // Al prender o apagar el dulce se reinician las barras para la carta nueva
+  // Al cambiar de carta se conservan el hambre y el sabor; solo el precio se traslada
   const cambiar_modo = useCallback((nuevo) => {
     establecer_modo(nuevo)
-    establecer_preferencias(PREFERENCIAS_INICIALES)
+    establecer_preferencias((actual) => ({ ...actual, presupuesto: null }))
   }, [])
 
   const opciones = useMemo(() => resultado?.opciones ?? [], [resultado])
@@ -67,7 +87,7 @@ export function Inicio() {
       al_cambiar={cambiar_preferencias}
       al_cambiar_modo={cambiar_modo}
       modo={modo}
-      preajustes={preajustes}
+      preajustes={preajustes_del_modo}
       rango_precios={rango_precios}
     />
   )
@@ -160,7 +180,7 @@ export function Inicio() {
                     variant="outlined"
                     color="secondary"
                     endIcon={<ArrowForwardIcon />}
-                    sx={{ mt: 2, mb: { xs: 9, lg: 0 } }}
+                    sx={{ mt: 2 }}
                   >
                     Ver el menu completo
                   </Button>
@@ -169,6 +189,8 @@ export function Inicio() {
             </Stack>
           </Grid>
         </Grid>
+
+        {!es_escritorio && <BotonAjustar al_abrir={() => establecer_cajon(true)} />}
       </ContenedorPagina>
 
       {!es_escritorio && (
@@ -180,7 +202,7 @@ export function Inicio() {
           al_cambiar={cambiar_preferencias}
           al_cambiar_modo={cambiar_modo}
           modo={modo}
-          preajustes={preajustes}
+          preajustes={preajustes_del_modo}
           rango_precios={rango_precios}
         />
       )}

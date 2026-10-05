@@ -8,6 +8,36 @@ import CheckIcon from '@mui/icons-material/Check'
 
 import PanelPreferencias from './panel_preferencias'
 
+// Boton que abre el cajon: acompana al scroll y se estaciona al final del contenido
+export function BotonAjustar({ al_abrir }) {
+  return (
+    <Box
+      sx={{
+        display: { xs: 'flex', lg: 'none' },
+        justifyContent: 'center',
+        // Flota mientras hay contenido abajo y se queda quieto al llegar al final
+        position: 'sticky',
+        bottom: 'calc(16px + env(safe-area-inset-bottom))',
+        zIndex: (tema) => tema.zIndex.drawer - 1,
+        pt: 3,
+        pb: 1,
+        // La franja no debe estorbar los toques sobre lo que hay detras
+        pointerEvents: 'none',
+      }}
+    >
+      <Fab
+        color="primary"
+        variant="extended"
+        onClick={al_abrir}
+        sx={{ pointerEvents: 'auto' }}
+      >
+        <TuneIcon sx={{ mr: 1 }} />
+        Ajustar mi antojo
+      </Fab>
+    </Box>
+  )
+}
+
 export function CajonPreferencias({
   abierto,
   al_abrir,
@@ -21,23 +51,6 @@ export function CajonPreferencias({
 }) {
   return (
     <>
-      <Fab
-        color="primary"
-        variant="extended"
-        onClick={al_abrir}
-        sx={{
-          position: 'fixed',
-          bottom: 20,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: (tema) => tema.zIndex.drawer - 1,
-          display: { xs: 'inline-flex', lg: 'none' },
-        }}
-      >
-        <TuneIcon sx={{ mr: 1 }} />
-        Ajustar mi antojo
-      </Fab>
-
       <SwipeableDrawer
         anchor="bottom"
         open={abierto}

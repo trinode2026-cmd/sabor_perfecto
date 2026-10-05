@@ -65,6 +65,7 @@ class PreajusteSalida(BaseModel):
     nombre: str
     descripcion: str
     icono: str
+    modo: Literal["salado", "dulce"]
     hambre: int
-    picante: int
+    sabor: int
     presupuesto: int

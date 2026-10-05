@@ -74,7 +74,7 @@ export function PanelPreferencias({
         </Button>
       </Box>
 
-      {!es_dulce && preajustes.length > 0 && (
+      {preajustes.length > 0 && (
         <PreajustesRapidos
           preajustes={preajustes}
           preferencias={preferencias}

@@ -1,5 +1,6 @@
 // Pantalla del menu completo con buscador, filtros y paginacion
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
@@ -46,10 +47,48 @@ const FILTROS_INICIALES = {
   orden: 'nombre',
 }
 
+// Lee los filtros desde la direccion de la pagina
+function leer_filtros(parametros) {
+  const categoria = parametros.get('categoria')
+  const precio = Number(parametros.get('precio'))
+  return {
+    buscar: parametros.get('buscar') ?? '',
+    categoria_id: categoria ? Number(categoria) : '',
+    etiqueta: parametros.get('etiqueta') ?? '',
+    tipo: parametros.get('tipo') ?? '',
+    precio_maximo: precio || FILTROS_INICIALES.precio_maximo,
+    orden: parametros.get('orden') ?? FILTROS_INICIALES.orden,
+  }
+}
+
+// Arma la direccion dejando fuera los filtros que estan en su valor normal
+function escribir_filtros(filtros, pagina, precio_tope) {
+  const direccion = {}
+  // Se guarda tal cual lo escrito: si se recortara aqui, al teclear se comeria los espacios
+  if (limpiar_busqueda(filtros.buscar)) direccion.buscar = filtros.buscar
+  if (filtros.tipo) direccion.tipo = filtros.tipo
+  if (filtros.categoria_id) direccion.categoria = String(filtros.categoria_id)
+  if (filtros.etiqueta) direccion.etiqueta = filtros.etiqueta
+  if (filtros.orden !== FILTROS_INICIALES.orden) direccion.orden = filtros.orden
+  if (filtros.precio_maximo < precio_tope) direccion.precio = String(filtros.precio_maximo)
+  if (pagina > 1) direccion.pagina = String(pagina)
+  return direccion
+}
+
 export function Menu() {
-  const [filtros, establecer_filtros] = useState(FILTROS_INICIALES)
-  const [filtros_aplicados, establecer_aplicados] = useState(FILTROS_INICIALES)
-  const [pagina, establecer_pagina] = useState(1)
+  // La direccion de la pagina es la que manda: asi los filtros sobreviven al boton atras
+  const [parametros, establecer_parametros] = useSearchParams()
+  const filtros_url = useMemo(() => leer_filtros(parametros), [parametros])
+  const pagina = Number(parametros.get('pagina')) || 1
+
+  const [filtros, establecer_filtros] = useState(filtros_url)
+  const [url_anterior, establecer_url_anterior] = useState(filtros_url)
+
+  // Si la direccion cambia por fuera (boton atras o enlace compartido), los controles la siguen
+  if (url_anterior !== filtros_url) {
+    establecer_url_anterior(filtros_url)
+    establecer_filtros(filtros_url)
+  }
 
   const { datos: categorias } = usePeticion(pedir_categorias, [], [])
   const { datos: etiquetas } = usePeticion(pedir_etiquetas, [], [])
@@ -59,33 +98,42 @@ export function Menu() {
   const precio_minimo = rango_precios?.minimo ?? LIMITES.presupuesto.minimo
   const precio_tope = rango_precios?.maximo ?? LIMITES.presupuesto.maximo
 
-  // Espera un momento despues de escribir antes de consultar al backend
+  // Al mover un filtro espera un momento y lo guarda en la direccion, volviendo a la pagina 1
   useEffect(() => {
+    if (JSON.stringify(filtros) === JSON.stringify(filtros_url)) return undefined
     const temporizador = setTimeout(() => {
-      establecer_aplicados(filtros)
-      establecer_pagina(1)
+      establecer_parametros(escribir_filtros(filtros, 1, precio_tope), { replace: true })
     }, ESPERA_CONSULTA)
     return () => clearTimeout(temporizador)
-  }, [filtros])
+  }, [filtros, filtros_url, precio_tope, establecer_parametros])
 
   const consulta = useCallback(
     () =>
       pedir_platillos(
         limpiar_filtros({
-          ...filtros_aplicados,
-          buscar: limpiar_busqueda(filtros_aplicados.buscar),
-          precio_maximo:
-            filtros_aplicados.precio_maximo >= precio_tope ? '' : filtros_aplicados.precio_maximo,
+          ...filtros_url,
+          buscar: limpiar_busqueda(filtros_url.buscar),
+          precio_maximo: filtros_url.precio_maximo >= precio_tope ? '' : filtros_url.precio_maximo,
           pagina,
           por_pagina: PLATILLOS_POR_PAGINA,
         }),
       ),
-    [filtros_aplicados, pagina, precio_tope],
+    [filtros_url, pagina, precio_tope],
   )
 
   const { datos, cargando, error, recargar } = usePeticion(consulta, [consulta], null)
 
   const cambiar = (campo) => (valor) => establecer_filtros((actual) => ({ ...actual, [campo]: valor }))
+
+  // Cambiar de pagina se guarda en la direccion igual que los filtros
+  const cambiar_pagina = (nueva) =>
+    establecer_parametros(escribir_filtros(filtros, nueva, precio_tope), { replace: true })
+
+  const limpiar_todo = () => {
+    establecer_filtros(FILTROS_INICIALES)
+    establecer_parametros({}, { replace: true })
+  }
+
   const hay_filtros = useMemo(
     () => JSON.stringify(filtros) !== JSON.stringify(FILTROS_INICIALES),
     [filtros],
@@ -213,7 +261,7 @@ export function Menu() {
       {!cargando && datos && datos.platillos.length === 0 && (
         <EstadoVacio
           descripcion="Prueba con otro nombre, sube el precio maximo o quita los filtros."
-          al_limpiar={hay_filtros ? () => establecer_filtros(FILTROS_INICIALES) : undefined}
+          al_limpiar={hay_filtros ? limpiar_todo : undefined}
         />
       )}
 
@@ -236,7 +284,7 @@ export function Menu() {
               <Pagination
                 count={datos.paginas}
                 page={pagina}
-                onChange={(_evento, nueva) => establecer_pagina(nueva)}
+                onChange={(_evento, nueva) => cambiar_pagina(nueva)}
                 color="primary"
                 siblingCount={0}
               />

@@ -8,7 +8,7 @@ export function PreajustesRapidos({ preajustes, preferencias, al_elegir }) {
   // Marca el preajuste si las tres preferencias coinciden con el
   const esta_activo = (preajuste) =>
     preferencias.hambre === preajuste.hambre &&
-    preferencias.sabor === preajuste.picante &&
+    preferencias.sabor === preajuste.sabor &&
     preferencias.presupuesto === preajuste.presupuesto
 
   return (
@@ -26,7 +26,7 @@ export function PreajustesRapidos({ preajustes, preferencias, al_elegir }) {
               onClick={() =>
                 al_elegir({
                   hambre: preajuste.hambre,
-                  sabor: preajuste.picante,
+                  sabor: preajuste.sabor,
                   presupuesto: preajuste.presupuesto,
                 })
               }

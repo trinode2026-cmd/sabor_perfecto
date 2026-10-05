@@ -17,7 +17,7 @@ import ContenedorPagina from '../componentes/diseno/contenedor_pagina'
 import TarjetaPlatillo from '../componentes/platillos/tarjeta_platillo'
 import CargandoPlatillos from '../componentes/comunes/cargando_platillos'
 import usePeticion from '../ganchos/usePeticion'
-import { pedir_populares } from '../servicios/cliente_api'
+import { pedir_platillos, pedir_populares } from '../servicios/cliente_api'
 import { RUTAS } from '../utiles/constantes'
 
 // Los tres pasos tal como los ve el usuario
@@ -33,8 +33,9 @@ const PASOS = [
     icono: <MenuBookIcon />,
     titulo: 'Revisamos el menu',
     texto:
-      'Comparamos tu antojo con la porcion, el nivel de chile y el precio de cada platillo de la cocina.',
-    nota: 'Revisamos los 50 platillos',
+      'Comparamos tu antojo con la porcion, el sabor y el precio de todo lo que preparamos, sea comida, postre o bebida.',
+    // La cifra se completa con el total real del menu
+    nota: null,
   },
   {
     icono: <CelebrationIcon />,
@@ -47,6 +48,10 @@ const PASOS = [
 
 export function ComoFunciona() {
   const { datos: populares, cargando } = usePeticion(() => pedir_populares(4), [], [])
+  const { datos: menu } = usePeticion(() => pedir_platillos({ por_pagina: 1 }), [], null)
+
+  // El segundo paso dice cuantos productos hay de verdad, no un numero escrito a mano
+  const nota_del_menu = menu ? `Revisamos los ${menu.total} productos` : 'Revisamos toda la carta'
 
   return (
     <ContenedorPagina
@@ -80,7 +85,13 @@ export function ComoFunciona() {
                 <Typography color="text.secondary" sx={{ mt: 1 }}>
                   {paso.texto}
                 </Typography>
-                <Chip label={paso.nota} size="small" color="secondary" variant="outlined" sx={{ mt: 2 }} />
+                <Chip
+                  label={paso.nota ?? nota_del_menu}
+                  size="small"
+                  color="secondary"
+                  variant="outlined"
+                  sx={{ mt: 2 }}
+                />
               </CardContent>
             </Card>
           </Grid>
