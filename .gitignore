@@ -48,6 +48,13 @@ MANIFEST
 *.sqlite3
 *.db
 
+# --- Pruebas y analisis de codigo ---
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
 # --- Material de trabajo que no forma parte del producto ---
 # Los bloques del reparto, las notas internas y las maquetas del diseno
 /PROYECTO/
