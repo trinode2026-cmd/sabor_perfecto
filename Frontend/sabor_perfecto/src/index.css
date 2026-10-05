@@ -1,0 +1,23 @@
+/* Estilos base; el resto del diseno vive en el tema de Material UI */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Evita que las imagenes desborden en pantallas chicas */
+img {
+  max-width: 100%;
+}
