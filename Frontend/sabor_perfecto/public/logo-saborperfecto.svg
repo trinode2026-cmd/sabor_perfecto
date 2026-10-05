@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="SaborPerfecto">
+  <title>SaborPerfecto</title>
+  <!-- Teja terracota con esquinas suaves -->
+  <rect width="512" height="512" rx="116" fill="#d85a2a"/>
+  <!-- Arco y punto: la sugerencia que llega al comensal -->
+  <path d="M198 150q58-56 116 0" fill="none" stroke="#ffdbcf" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="256" cy="188" r="31" fill="#ffdbcf"/>
+  <!-- Campana de servicio sobre su charola -->
+  <path d="M152 356a104 136 0 0 1 208 0z" fill="#ffffff"/>
+  <rect x="116" y="356" width="280" height="32" rx="16" fill="#ffffff"/>
+</svg>
