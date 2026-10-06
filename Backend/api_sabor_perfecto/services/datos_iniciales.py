@@ -344,13 +344,15 @@ MATRICES_REGLAS = {
 
 # Perfiles que el usuario puede aplicar con un solo toque
 PREAJUSTES = [
+    # Carta salada
     {
         "clave": "hambriento",
         "nombre": "Con mucha hambre",
         "descripcion": "Algo bien servido y con sabor fuerte.",
         "icono": "local_fire_department",
+        "modo": "salado",
         "hambre": 85,
-        "picante": 75,
+        "sabor": 75,
         "presupuesto": 180,
     },
     {
@@ -358,8 +360,9 @@ PREAJUSTES = [
         "nombre": "Algo ligero",
         "descripcion": "Comida suave y fresca, sin pesadez.",
         "icono": "eco",
+        "modo": "salado",
         "hambre": 30,
-        "picante": 15,
+        "sabor": 15,
         "presupuesto": 120,
     },
     {
@@ -367,8 +370,9 @@ PREAJUSTES = [
         "nombre": "Antojo equilibrado",
         "descripcion": "Un plato completo con sabor moderado.",
         "icono": "balance",
+        "modo": "salado",
         "hambre": 60,
-        "picante": 45,
+        "sabor": 45,
         "presupuesto": 200,
     },
     {
@@ -376,8 +380,9 @@ PREAJUSTES = [
         "nombre": "Cuidando el gasto",
         "descripcion": "Lo mas rico sin gastar mucho.",
         "icono": "savings",
+        "modo": "salado",
         "hambre": 55,
-        "picante": 50,
+        "sabor": 50,
         "presupuesto": 90,
     },
     {
@@ -385,9 +390,61 @@ PREAJUSTES = [
         "nombre": "Para compartir",
         "descripcion": "Porcion grande para dos personas.",
         "icono": "groups",
+        "modo": "salado",
         "hambre": 95,
-        "picante": 50,
+        "sabor": 50,
         "presupuesto": 380,
+    },
+    # Carta dulce
+    {
+        "clave": "antojito_dulce",
+        "nombre": "Un antojito dulce",
+        "descripcion": "Un postre chico para cerrar la comida.",
+        "icono": "cake",
+        "modo": "dulce",
+        "hambre": 45,
+        "sabor": 75,
+        "presupuesto": 60,
+    },
+    {
+        "clave": "postre_completo",
+        "nombre": "Postre completo",
+        "descripcion": "Un postre de los que llenan de verdad.",
+        "icono": "local_fire_department",
+        "modo": "dulce",
+        "hambre": 70,
+        "sabor": 85,
+        "presupuesto": 85,
+    },
+    {
+        "clave": "sin_azucar",
+        "nombre": "Casi sin azucar",
+        "descripcion": "Algo neutro, como un cafe o un te.",
+        "icono": "eco",
+        "modo": "dulce",
+        "hambre": 20,
+        "sabor": 0,
+        "presupuesto": 45,
+    },
+    {
+        "clave": "refrescante",
+        "nombre": "Solo para refrescarme",
+        "descripcion": "Una bebida fria y ligera.",
+        "icono": "balance",
+        "modo": "dulce",
+        "hambre": 15,
+        "sabor": 45,
+        "presupuesto": 45,
+    },
+    {
+        "clave": "dulce_economico",
+        "nombre": "Cuidando el gasto",
+        "descripcion": "Lo mas dulce sin gastar mucho.",
+        "icono": "savings",
+        "modo": "dulce",
+        "hambre": 35,
+        "sabor": 90,
+        "presupuesto": 40,
     },
 ]
 
