@@ -38,6 +38,8 @@ export function BotonAjustar({ al_abrir }) {
   )
 }
 
+// Cajon inferior para telefono que mete dentro el panel de preferencias en su version
+// compacta, se puede arrastrar para abrir o cerrar, y se confirma con el boton de aceptar
 export function CajonPreferencias({
   abierto,
   al_abrir,

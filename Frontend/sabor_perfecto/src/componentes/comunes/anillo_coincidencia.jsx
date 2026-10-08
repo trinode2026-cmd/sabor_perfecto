@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography'
 import { limpiar_porcentaje } from '../../utiles/formato'
 import { color_coincidencia } from '../../utiles/etiquetas_texto'
 
+// Dibuja como anillo el porcentaje de coincidencia que calculo el backend,
+// pintado del color que le corresponde segun que tan alto sea ese porcentaje
 export function AnilloCoincidencia({ valor, tamano = 108, etiqueta = 'para ti' }) {
   const porcentaje = limpiar_porcentaje(valor)
   const color = color_coincidencia(porcentaje)

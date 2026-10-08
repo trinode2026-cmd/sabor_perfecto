@@ -46,6 +46,8 @@ const PASOS = [
   },
 ]
 
+// Pantalla que explica el proceso en tres pasos y muestra los platillos mas recomendados
+// que devuelve el backend; el total real del menu se usa para completar el segundo paso
 export function ComoFunciona() {
   const { datos: populares, cargando } = usePeticion(() => pedir_populares(4), [], [])
   const { datos: menu } = usePeticion(() => pedir_platillos({ por_pagina: 1 }), [], null)

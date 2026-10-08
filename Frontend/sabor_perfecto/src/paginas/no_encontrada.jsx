@@ -8,6 +8,8 @@ import ContenedorPagina from '../componentes/diseno/contenedor_pagina'
 import Logo from '../componentes/diseno/logo'
 import { RUTAS } from '../utiles/constantes'
 
+// Pantalla que se muestra para cualquier direccion que no existe, con el boton
+// para regresar al inicio
 export function NoEncontrada() {
   return (
     <ContenedorPagina>

@@ -10,6 +10,8 @@ function suavizar(avance) {
   return 1 - (1 - avance) ** 3
 }
 
+// No dibuja nada en pantalla: cada vez que cambia la ruta sube la pagina hasta arriba
+// con una animacion suave, o de un salto si el visitante pidio menos movimiento
 export function RegresarArriba() {
   const { pathname } = useLocation()
   const animacion = useRef(0)

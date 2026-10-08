@@ -4,6 +4,8 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import SearchOffIcon from '@mui/icons-material/SearchOff'
 
+// Avisa que la busqueda no devolvio ningun platillo y, si se le pasa la funcion
+// al_limpiar, ofrece el boton para quitar los filtros aplicados
 export function EstadoVacio({ titulo = 'No encontramos platillos', descripcion, al_limpiar }) {
   return (
     <Box sx={{ textAlign: 'center', py: 8, px: 2 }}>

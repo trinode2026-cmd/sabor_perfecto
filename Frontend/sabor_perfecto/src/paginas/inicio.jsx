@@ -26,6 +26,9 @@ import { pedir_preajustes, pedir_rango_precios } from '../servicios/cliente_api'
 import { MODOS, PREFERENCIAS_INICIALES, RUTAS } from '../utiles/constantes'
 import { punto_medio_precio } from '../utiles/validaciones'
 
+// Pantalla principal: guarda las preferencias y el modo de busqueda del usuario, los
+// manda al backend y muestra el platillo recomendado junto con las demas opciones.
+// En escritorio el panel de barras va al lado y en telefono dentro de un cajon
 export function Inicio() {
   const tema = useTheme()
   const es_escritorio = useMediaQuery(tema.breakpoints.up('lg'))

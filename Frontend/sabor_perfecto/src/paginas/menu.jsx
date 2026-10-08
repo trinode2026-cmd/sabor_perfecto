@@ -75,6 +75,8 @@ function escribir_filtros(filtros, pagina, precio_tope) {
   return direccion
 }
 
+// Pantalla del menu completo: guarda los filtros en la direccion de la pagina para que
+// sobrevivan al boton atras, los manda al backend y pinta los resultados paginados
 export function Menu() {
   // La direccion de la pagina es la que manda: asi los filtros sobreviven al boton atras
   const [parametros, establecer_parametros] = useSearchParams()

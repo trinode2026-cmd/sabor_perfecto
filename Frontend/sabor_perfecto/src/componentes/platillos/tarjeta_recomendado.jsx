@@ -25,6 +25,9 @@ import {
 } from '../../utiles/etiquetas_texto'
 import { RUTAS } from '../../utiles/constantes'
 
+// Tarjeta destacada del platillo que gano la recomendacion: muestra el anillo de
+// coincidencia, el motivo que redacto el backend y las tres barras de afinidad
+// (porcion, sabor y precio) que vienen en la respuesta
 export function TarjetaRecomendado({ platillo, modo = 'salado' }) {
   if (!platillo) return null
 

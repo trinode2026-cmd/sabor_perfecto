@@ -13,6 +13,9 @@ import { formatear_precio, recortar_texto } from '../../utiles/formato'
 import { color_coincidencia, texto_porcion, texto_sabor } from '../../utiles/etiquetas_texto'
 import { RUTAS } from '../../utiles/constantes'
 
+// Tarjeta del menu con la imagen, la categoria, el nombre, la descripcion recortada,
+// la porcion, el sabor y el precio. Con mostrar_coincidencia tambien pinta el
+// porcentaje que calculo el backend sobre la imagen
 export function TarjetaPlatillo({ platillo, mostrar_coincidencia = false, modo = 'salado' }) {
   const es_dulce = modo === 'dulce' || platillo.tipo === 'postre' || platillo.tipo === 'bebida'
   return (

@@ -1,6 +1,8 @@
 // Marca de SaborPerfecto: campana de servicio con el arco de la sugerencia
 import Box from '@mui/material/Box'
 
+// Dibuja en SVG la campana de servicio de la marca; con teja usa el naranja de la
+// aplicacion y sin teja toma el color del texto que lo rodea
 export function Logo({ tamano = 38, con_teja = true }) {
   // Sin teja el dibujo toma el color del texto que lo rodea
   const color_fondo = con_teja ? '#d85a2a' : 'transparent'

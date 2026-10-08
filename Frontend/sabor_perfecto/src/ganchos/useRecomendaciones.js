@@ -5,6 +5,9 @@ import { pedir_recomendaciones } from '../servicios/cliente_api'
 import { ESPERA_CONSULTA } from '../utiles/constantes'
 import { validar_preferencias } from '../utiles/validaciones'
 
+// Pide las recomendaciones al backend cada vez que cambian las preferencias del usuario.
+// Valida los valores antes de enviarlos y espera un momento entre un cambio y la consulta
+// para no llamar a la API en cada movimiento de la barra
 export function useRecomendaciones(preferencias, modo = 'salado', limite = 8) {
   const [resultado, establecer_resultado] = useState(null)
   const [cargando, establecer_cargando] = useState(true)

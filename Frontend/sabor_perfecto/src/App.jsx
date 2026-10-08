@@ -20,6 +20,8 @@ const DetallePlatillo = lazy(() => import('./paginas/detalle_platillo'))
 const ComoFunciona = lazy(() => import('./paginas/como_funciona'))
 const NoEncontrada = lazy(() => import('./paginas/no_encontrada'))
 
+// Monta la aplicacion completa: arma el tema claro u oscuro, coloca la barra de navegacion
+// y el pie de pagina, y decide cual pantalla mostrar segun la direccion del navegador
 function App() {
   const { modo, alternar_modo } = useModoTema()
   const tema = useMemo(() => crear_tema(modo), [modo])

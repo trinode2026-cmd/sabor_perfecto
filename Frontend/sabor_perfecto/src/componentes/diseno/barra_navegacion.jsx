@@ -26,6 +26,9 @@ const SECCIONES = [
   { ruta: RUTAS.comoFunciona, texto: 'Como funciona' },
 ]
 
+// Barra superior con el logo, los enlaces a las tres secciones y el boton de tema.
+// El modo actual y la funcion para alternarlo llegan desde App; en telefono los
+// enlaces se mueven a un cajon lateral
 export function BarraNavegacion({ modo, al_cambiar_tema }) {
   const [cajon_abierto, establecer_cajon] = useState(false)
   const ubicacion = useLocation()

@@ -12,6 +12,8 @@ import { formatear_precio, recortar_texto } from '../../utiles/formato'
 import { color_coincidencia, texto_porcion, texto_sabor } from '../../utiles/etiquetas_texto'
 import { RUTAS } from '../../utiles/constantes'
 
+// Fila compacta de una de las opciones que devolvio el backend: muestra su posicion en
+// el orden, su porcentaje de coincidencia, la porcion, el sabor y el precio
 export function FilaOpcion({ platillo, posicion, modo = 'salado' }) {
   const color = color_coincidencia(platillo.coincidencia)
 

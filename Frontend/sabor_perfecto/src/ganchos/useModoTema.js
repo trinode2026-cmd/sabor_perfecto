@@ -14,6 +14,8 @@ function leer_modo_guardado() {
   return 'claro'
 }
 
+// Recuerda en el navegador si el usuario prefiere el tema claro u oscuro y devuelve
+// el modo actual junto con la funcion que lo alterna
 export function useModoTema() {
   const [modo, establecer_modo] = useState(leer_modo_guardado)
 

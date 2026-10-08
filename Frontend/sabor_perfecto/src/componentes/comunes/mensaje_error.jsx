@@ -3,6 +3,8 @@ import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 
+// Muestra el mensaje de error que armo el cliente de la API y, si se le pasa
+// al_reintentar, el boton para repetir la consulta que fallo
 export function MensajeError({ mensaje, al_reintentar }) {
   if (!mensaje) return null
   return (

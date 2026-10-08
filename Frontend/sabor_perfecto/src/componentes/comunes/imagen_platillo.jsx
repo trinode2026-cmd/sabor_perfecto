@@ -47,6 +47,8 @@ function fondo_de(texto) {
   return FONDOS[suma % FONDOS.length]
 }
 
+// Muestra la foto del platillo cuando el backend manda url_imagen; si viene vacia,
+// pinta un degradado fijo por categoria con el icono que indica icono_categoria
 export function ImagenPlatillo({ platillo, altura = 180, mostrar_nombre = true }) {
   const Icono = ICONOS[platillo?.icono_categoria] || RestaurantIcon
   // Cuando la altura llega en numero se usa tambien como tamano minimo del fondo

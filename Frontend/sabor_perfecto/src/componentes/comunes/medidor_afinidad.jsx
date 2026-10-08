@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography'
 
 import { limpiar_porcentaje } from '../../utiles/formato'
 
+// Dibuja como barra de progreso una de las afinidades que calculo el backend
+// (porcion, sabor o precio), con su titulo a la izquierda y su valor a la derecha
 export function MedidorAfinidad({ titulo, valor, detalle, color = 'primary' }) {
   const porcentaje = limpiar_porcentaje(valor)
   return (

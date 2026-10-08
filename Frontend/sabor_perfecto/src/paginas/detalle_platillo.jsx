@@ -27,6 +27,8 @@ import { formatear_minutos, formatear_precio } from '../utiles/formato'
 import { texto_porcion, texto_sabor } from '../utiles/etiquetas_texto'
 import { RUTAS } from '../utiles/constantes'
 
+// Pantalla que toma el id de la direccion, le pide al backend ese platillo con sus
+// similares, y muestra su imagen, sus caracteristicas y las opciones parecidas
 export function DetallePlatillo() {
   const { id } = useParams()
   const consulta = useCallback(() => pedir_platillo(id), [id])

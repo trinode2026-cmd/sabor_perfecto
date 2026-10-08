@@ -1,6 +1,9 @@
 // Gancho general para cualquier consulta al backend que solo necesita cargar datos
 import { useCallback, useEffect, useState } from 'react'
 
+// Ejecuta cualquier consulta al backend y devuelve los datos recibidos, si todavia esta
+// cargando, el mensaje de error y la funcion para volver a pedirlos. La consulta se
+// repite sola cuando cambia alguna de las dependencias indicadas
 export function usePeticion(consulta, dependencias = [], valor_inicial = null) {
   const [datos, establecer_datos] = useState(valor_inicial)
   const [cargando, establecer_cargando] = useState(true)

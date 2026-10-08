@@ -4,6 +4,9 @@ import Slider from '@mui/material/Slider'
 import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
 
+// Barra deslizante reutilizable: recibe los limites, el texto que describe el nivel
+// elegido y el valor que se muestra en la etiqueta, y avisa al componente padre
+// mediante al_cambiar cada vez que el usuario la mueve
 export function BarraPreferencia({
   titulo,
   ayuda,

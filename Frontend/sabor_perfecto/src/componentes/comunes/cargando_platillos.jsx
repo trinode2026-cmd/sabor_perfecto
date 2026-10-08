@@ -4,6 +4,8 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Skeleton from '@mui/material/Skeleton'
 
+// Pinta tarjetas grises del mismo tamano que las reales mientras el backend responde,
+// para que la pantalla no brinque cuando llegan los platillos
 export function CargandoPlatillos({ cantidad = 6, columnas = { xs: 12, sm: 6, lg: 4 } }) {
   return (
     <Grid container spacing={3}>

@@ -35,6 +35,10 @@ function marcas_de_precio(minimo, maximo) {
   ]
 }
 
+// Junta las tres barras que ajusta el usuario (hambre, sabor y presupuesto), el
+// interruptor que cambia entre comida y carta dulce, y los preajustes rapidos.
+// Los limites de la barra de precio salen del rango que manda el backend en
+// rango_precios, y cada cambio se avisa hacia arriba con al_cambiar
 export function PanelPreferencias({
   preferencias,
   al_cambiar,

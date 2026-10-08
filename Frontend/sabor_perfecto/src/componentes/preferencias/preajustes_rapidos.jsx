@@ -4,6 +4,8 @@ import Chip from '@mui/material/Chip'
 import Typography from '@mui/material/Typography'
 import Tooltip from '@mui/material/Tooltip'
 
+// Lista como chips los perfiles que entrega la ruta /preajustes del backend; al tocar
+// uno aplica de golpe sus tres valores y queda marcado mientras las barras coincidan
 export function PreajustesRapidos({ preajustes, preferencias, al_elegir }) {
   // Marca el preajuste si las tres preferencias coinciden con el
   const esta_activo = (preajuste) =>

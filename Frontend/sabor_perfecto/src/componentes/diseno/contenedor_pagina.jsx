@@ -3,6 +3,8 @@ import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
+// Centra el contenido de cualquier pantalla con el mismo ancho y margen, y si se le
+// pasan titulo y descripcion los pinta arriba con el estilo compartido
 export function ContenedorPagina({ titulo, descripcion, children, ancho = 'lg' }) {
   return (
     <Container maxWidth={ancho} sx={{ py: { xs: 3, md: 5 }, px: { xs: 2, sm: 3 } }}>

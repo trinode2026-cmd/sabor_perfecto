@@ -8,6 +8,8 @@ import { Link as EnlaceRuta } from 'react-router-dom'
 import Logo from './logo'
 import { NOMBRE_APP, RUTAS } from '../../utiles/constantes'
 
+// Pie de pagina con el logo, los enlaces al menu y a como funciona,
+// y el aviso de que los precios van en pesos mexicanos
 export function PiePagina() {
   return (
     <Box
